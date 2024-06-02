@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Verklo : 홈</title>
+  <link rel="shortcut icon" href="https://ifh.cc/g/NM40vz.png">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="margin: 0px; padding: 0px;">
+  <style>
+    a:link,
+    a:visited {
+      color: white;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .label_verklo {
+      width: 45px;
+      height: 20px;
+      display: inline-block;
+      border-radius: 5px;
+      margin: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      margin-right: 10px;
+    }
+
+    #deletetest {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      bottom: 0;
+      right: 0;
+      margin-bottom: 10px;
+      margin-right: 10px;
+    }
+
+    .basicWid {
+      width: 150px;
+      border-radius: 10px;
+      position: absolute;
+      background-color: white;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      /*justify-content: center;*/
+      align-items: center;
+    }
+
+    .memo {
+      width: 220px;
+      height: auto;
+      border-radius: 3px;
+      position: absolute;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      /*justify-content: center;*/
+      align-items: center;
+      font-family: 바탕체;
+    }
+
+    .platform {
+      position: relative;
+      width: 100%;
+      height: 550px;
+      background-color: #f0f0f0;
+      background-image: linear-gradient(to right, #ccc 1px, transparent 1px), linear-gradient(to bottom, #ccc 1px, transparent 1px);
+      background-size: 10px 10px;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    input[type="button"]:hover {
+      color: white;
+      background-color: #58FFA9;
+    }
+
+    button:hover {
+      background-color: #D8DAD9;
+    }
+
+    input[type="button"] {
+      border-radius: 8px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      background-color: #FDF9F6;
+      color: black;
+      height: 22px;
+      width: 110px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .basicbox_verklo,
+    .basicwindow_verklo {
+      background-color: white;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .iframer {
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      width: 320px;
+      height: 200px;
+      background-color: white;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .clock {
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 70px;
+      background-color: white;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      border: 1px solid #CCCCCC;
+      border-radius: 10px;
+      background-color: white;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    input[type="color"] {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #CCCCCC;
+      border-radius: 10px;
+      background-color: white;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+      border-radius: 30px;
+      border: none;
+    }
+
+    .tager {
+      border: 1px solid #CCCCCC;
+      border-radius: 15px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      border: 3px solid transparent;
+      box-shadow: inset 6px 6px 0;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    textarea {
+      resize: none;
+      background-color: white;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #memobar {
+      display: none;
+      position: absolute;
+      width: 250px;
+      height: auto;
+      background-color: #FFFFFF;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    #iframerbar {
+      display: none;
+      position: absolute;
+      width: 250px;
+      height: auto;
+      background-color: #FFFFFF;
+      border: 1px solid #DADADA;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+
+  <script>
+    console.log("verklo");
+    console.warn("상대에게 받은 콘솔코드는 당신에게 위험할 수 있습니다.");
+  </script>
+
+  <div id="pcverklo">
+    <div id="A_all" style="margin: 0px; padding: 0px; width: 100%;">
+      <div id="A_1"
+        style="width: 100%; height: 70px; background-color: white; margin: 0px; padding: 0px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid gray; border-radius: 10px; text-align: center;">
+        <div id="A_1_a" class="logo">
+          <a href="https://verklo.vercel.app/">
+            <img src="https://ifh.cc/g/NM40vz.png" style="width: 40px; height: 40px; display: inline">
+          </a>
+        </div>
+      </div>
+      <center>
+        <div id="createBar" style="height: 100px; width: 98%;/* position: absolute;*/" class="basicbox_verklo">
+          <button id="memobutton" value="메모" onclick=" handleWindow('#memobar', '#memobutton');">메모</button>
+          <div class="basicwindow_verklo" id="memobar" style="display: none; width: 250px; height: 120px; position: absolute;">
+            <textarea id="memo_input" placeholder="메모의 내용을 입력해보세요!" rows="4" cols="50"
+              style="height: 30px; width: 220px;"></textarea>
+            <hr>
+            <div>
+              <input type="color" id="test_color1" value="#FFDF99" style="display: inline-block;">
+              <input type="color" id="test_color2" value="#000000" style="display: inline-block;">
+              <button onclick="
+              if(document.querySelector('#memo_input').value != ''){
+              create('memo', document.querySelector('#memo_input').value, document.querySelector('#test_color1').value, document.querySelector('#test_color2').value);}
+              else
+              {
+                window.alert('메모의 내용은 한글자 이상이여야 합니다.')
+              }
+              document.querySelector('#memo_input').value = '';
+              handleWindow('#memobar','#memobutton');
+              " style="margin: 0px;">생성</button>
+              <button onclick="handleWindow('#memobar','#memobutton');" style="margin: 0px;">닫기</button>
+            </div>
+          </div>
+          
+          <button id="iframerbutton" onclick="handleWindow('#iframerbar','#iframerbutton');">링크</button>
+          
+          <div id="iframerbar" class="basicwindow_verklo" style="display: none; width: 250px; height: 120px; position: absolute;">
+            <textarea id="iframer_input" placeholder="접속링크를 입력해보세요" rows="4" cols="50"
+              style="height: 30px; width: 220px;"></textarea>
+            <hr>
+            <div>
+              <button onclick="
+              if(document.querySelector('#iframer_input').value != ''){
+              create('iframer',document.querySelector('#iframer_input'),'null','null')}
+              else
+              {
+                window.alert('링크가 아닙니다.')
+              }
+              document.querySelector('#iframer_input').value = '';
+              handleWindow('#iframerbar','#iframerbutton');
+              " style="margin: 0px;">생성</button>
+              <button onclick="handleWindow('#iframerbar','#iframerbutton');" style="margin: 0px;">닫기</button>
+            </div>
+          </div>
+
+          <button id="clockbutton" onclick="create('clock','null','null','null');">시계</button>
+          
+        </div>
+      </center><!--cen_createBar_end-->
+      <div id="platform" class="platform">
+        <div id="deletetest"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    console.log(" verklo"); console.warn("상대에게 받은 콘솔코드는 당신에게 위험할 수 있습니다.");
+    let draggedIs = null;
+    function create(type, content, backgroundColor, textColor) {
+      const platform = document.querySelector(".platform");
+      const platformWidth = platform.clientWidth;
+      const platformHeight = platform.clientHeight;
+      const randomX = Math.floor(Math.random() * (platformWidth - 150));
+      const randomY = Math.floor(Math.random() * (platformHeight - 50));
+      let newDiv = ""; // newDiv 변수를 선언
+
+      // WidOPEN
+      if (type === "memo") {
+        newDiv = document.createElement('div'); 
+        newDiv.className = type;
+        newDiv.innerHTML = "<pre>" + content + "</pre>";
+      } else if (type === 'iframer') {
+        if (content !== '') {
+          newDiv = document.createElement('iframe'); 
+          newDiv.className = type;
+          newDiv.src = content;
+        } else {
+          window.alert('링크를 입력해주세요.');
+          return; // 링크가 비어있을 경우 함수 종료
+        }
+      } else if (type === 'clock') {
+        newDiv = document.createElement('div');
+        newDiv.className = type;
+        newDiv.innerHTML = '<div style = "width:150px;height:80px;background-color : red;"></div>';
+      }
+
+      newDiv.style.left = `${randomX}px`; 
+      newDiv.style.top = `${randomY}px`;
+      newDiv.style.backgroundColor = backgroundColor; 
+      newDiv.style.color = textColor; 
+      platform.appendChild(newDiv);
+      newDiv.addEventListener('mousedown', function (event) {
+        draggedIs = newDiv;
+      });
+      document.addEventListener('mousemove', function (event) {
+        if (draggedIs) {
+          const
+            platformRect = platform.getBoundingClientRect(); 
+          const x = event.clientX - platformRect.left - draggedIs.clientWidth / 2; 
+          const y = event.clientY - platformRect.top - draggedIs.clientHeight / 2; 
+          const newX = Math.max(0, Math.min(x, platform.clientWidth - draggedIs.clientWidth)); 
+          const newY = Math.max(0, Math.min(y, platform.clientHeight - draggedIs.clientHeight)); 
+          draggedIs.style.left = `${newX}px`;
+          draggedIs.style.top = `${newY}px`;
+        }
+      });
+      document.addEventListener('mouseup', function () {
+        if (draggedIs) {
+          const deletetest = document.getElementById('deletetest'); 
+          const draggedRect = draggedIs.getBoundingClientRect();
+          const deletetestRect = deletetest.getBoundingClientRect(); 
+          if (draggedRect.left < deletetestRect.right &&
+            draggedRect.right > deletetestRect.left &&
+            draggedRect.top < deletetestRect.bottom && draggedRect.bottom > deletetestRect.top
+          ) {
+            platform.removeChild(draggedIs);
+          }
+          draggedIs = null;
+        }
+      });
+    }
+
+
+    function handleWindow(id, where) {
+      var handler = document.querySelector(id);
+      var handled = document.querySelector(where);
+
+      if (handler.style.display === 'none') {
+        handler.style.display = 'block';
+        let rect = handled.getBoundingClientRect().left;
+        handler.style.left = rect + "px";
+      } else {
+        handler.style.display = 'none';
+      }
+    }
+
+
+    document.querySelector("#platform").addEventListener('mousedown', function (event) {
+      document.querySelector(".basicwindow_verklo").style.display = "none";
+      document.querySelector("#iframerbar").style.display = "none";
+    });
+
+  </script>
+</body>
+
+</html>
