@@ -41,11 +41,10 @@
       margin-right: 10px;
     }
 
-    #deletetest {
+    #delete_zone {
       position: absolute;
       width: 50px;
       height: 50px;
-      background-color: red;
       bottom: 0;
       right: 0;
       margin-bottom: 10px;
@@ -253,7 +252,8 @@
       <center>
         <div id="createBar" style="height: 100px; width: 98%;/* position: absolute;*/" class="basicbox_verklo">
           <button id="memobutton" value="메모" onclick=" handleWindow('#memobar', '#memobutton');">메모</button>
-          <div class="basicwindow_verklo" id="memobar" style="display: none; width: 250px; height: 120px; position: absolute;">
+          <div class="basicwindow_verklo" id="memobar"
+            style="display: none; width: 250px; height: 120px; position: absolute;">
             <textarea id="memo_input" placeholder="메모의 내용을 입력해보세요!" rows="4" cols="50"
               style="height: 30px; width: 220px;"></textarea>
             <hr>
@@ -273,12 +273,13 @@
               <button onclick="handleWindow('#memobar','#memobutton');" style="margin: 0px;">닫기</button>
             </div>
           </div>
-          
+
           <button id="iframerbutton" onclick="handleWindow('#iframerbar','#iframerbutton');">링크</button>
-          
-          <div id="iframerbar" class="basicwindow_verklo" style="display: none; width: 250px; height: 120px; position: absolute;">
+
+          <div id="iframerbar" class="basicwindow_verklo"
+            style="display: none; width: 300px; height: 130px; position: absolute;">
             <textarea id="iframer_input" placeholder="접속링크를 입력해보세요" rows="4" cols="50"
-              style="height: 30px; width: 220px;"></textarea>
+              style="height: 30px; width:270px;"></textarea>
             <hr>
             <div>
               <button onclick="
@@ -292,43 +293,46 @@
               handleWindow('#iframerbar','#iframerbutton');
               " style="margin: 0px;">생성</button>
               <button onclick="handleWindow('#iframerbar','#iframerbutton');" style="margin: 0px;">닫기</button>
+              <div style="font-size: 10px;margin:0px;margin-top:3px;">접속기능은 아직 불안정합니다. 드래그 오류가 발생될 가능성이 높습니다.</div>
             </div>
           </div>
 
           <button id="clockbutton" onclick="create('clock','null','null','null');">시계</button>
-          
+
         </div>
       </center><!--cen_createBar_end-->
       <div id="platform" class="platform">
-        <div id="deletetest"></div>
+        <div id="delete_zone"><img src='https://ifh.cc/g/hHnMR3.png' width="60px"></div>
       </div>
     </div>
   </div>
 
   <script>
-    console.log(" verklo"); console.warn("상대에게 받은 콘솔코드는 당신에게 위험할 수 있습니다.");
+    console.log("verklo");
+    console.warn("상대에게 받은 콘솔코드는 당신에게 위험할 수 있습니다.");
+
     let draggedIs = null;
+
     function create(type, content, backgroundColor, textColor) {
       const platform = document.querySelector(".platform");
       const platformWidth = platform.clientWidth;
       const platformHeight = platform.clientHeight;
       const randomX = Math.floor(Math.random() * (platformWidth - 150));
       const randomY = Math.floor(Math.random() * (platformHeight - 50));
-      let newDiv = ""; // newDiv 변수를 선언
+      let newDiv = "";
 
-      // WidOPEN
       if (type === "memo") {
-        newDiv = document.createElement('div'); 
+        newDiv = document.createElement('div');
         newDiv.className = type;
         newDiv.innerHTML = "<pre>" + content + "</pre>";
       } else if (type === 'iframer') {
         if (content !== '') {
-          newDiv = document.createElement('iframe'); 
+          newDiv = document.createElement('div');
           newDiv.className = type;
-          newDiv.src = content;
+          newDiv.innerHTML = `<iframe src="${content}" class="basicWid" style="width: 300px; height:180px;"></iframe>`;
         } else {
           window.alert('링크를 입력해주세요.');
-          return; // 링크가 비어있을 경우 함수 종료
+          return;
         }
       } else if (type === 'clock') {
         newDiv = document.createElement('div');
@@ -336,42 +340,40 @@
         newDiv.innerHTML = '<div style = "width:150px;height:80px;background-color : red;"></div>';
       }
 
-      newDiv.style.left = `${randomX}px`; 
+      newDiv.style.left = `${randomX}px`;
       newDiv.style.top = `${randomY}px`;
-      newDiv.style.backgroundColor = backgroundColor; 
-      newDiv.style.color = textColor; 
+      newDiv.style.backgroundColor = backgroundColor;
+      newDiv.style.color = textColor;
       platform.appendChild(newDiv);
+
       newDiv.addEventListener('mousedown', function (event) {
         draggedIs = newDiv;
       });
+
       document.addEventListener('mousemove', function (event) {
         if (draggedIs) {
-          const
-            platformRect = platform.getBoundingClientRect(); 
-          const x = event.clientX - platformRect.left - draggedIs.clientWidth / 2; 
-          const y = event.clientY - platformRect.top - draggedIs.clientHeight / 2; 
-          const newX = Math.max(0, Math.min(x, platform.clientWidth - draggedIs.clientWidth)); 
-          const newY = Math.max(0, Math.min(y, platform.clientHeight - draggedIs.clientHeight)); 
+          const platformRect = platform.getBoundingClientRect();
+          const x = event.clientX - platformRect.left - draggedIs.clientWidth / 2;
+          const y = event.clientY - platformRect.top - draggedIs.clientHeight / 2;
+          const newX = Math.max(0, Math.min(x, platform.clientWidth - draggedIs.clientWidth));
+          const newY = Math.max(0, Math.min(y, platform.clientHeight - draggedIs.clientHeight));
           draggedIs.style.left = `${newX}px`;
           draggedIs.style.top = `${newY}px`;
         }
       });
-      document.addEventListener('mouseup', function () {
+
+      // 드래그한 요소를 놓았을 때 쓰레기통 위에 닿으면 삭제
+      document.addEventListener('mouseup', function (event) {
         if (draggedIs) {
-          const deletetest = document.getElementById('deletetest'); 
-          const draggedRect = draggedIs.getBoundingClientRect();
-          const deletetestRect = deletetest.getBoundingClientRect(); 
-          if (draggedRect.left < deletetestRect.right &&
-            draggedRect.right > deletetestRect.left &&
-            draggedRect.top < deletetestRect.bottom && draggedRect.bottom > deletetestRect.top
-          ) {
-            platform.removeChild(draggedIs);
+          const deleteBinRect = document.querySelector("#delete_zone").getBoundingClientRect();
+          if (event.clientX > deleteBinRect.left && event.clientX < deleteBinRect.right &&
+              event.clientY > deleteBinRect.top && event.clientY < deleteBinRect.bottom) {
+            draggedIs.remove();
           }
           draggedIs = null;
         }
       });
     }
-
 
     function handleWindow(id, where) {
       var handler = document.querySelector(id);
@@ -385,7 +387,6 @@
         handler.style.display = 'none';
       }
     }
-
 
     document.querySelector("#platform").addEventListener('mousedown', function (event) {
       document.querySelector(".basicwindow_verklo").style.display = "none";
